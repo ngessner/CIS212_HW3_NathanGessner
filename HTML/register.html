@@ -16,6 +16,7 @@
         </div>
         <div class="content">
             <h1>Register</h1>
+            
             <form id="registerForm">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="text" id="first_name" placeholder="First Name" required>
@@ -28,43 +29,54 @@
     </div>
 
     <script>
+        // event listener for the registration form submission
         document.getElementById("registerForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
+            e.preventDefault(); // prevent the default form submission behavior
 
+            // retrieve form data
             const username = document.getElementById("username").value;
             const firstName = document.getElementById("first_name").value;
             const lastName = document.getElementById("last_name").value;
             const password = document.getElementById("password").value;
 
+            // create url-encoded form data
             const formData = new URLSearchParams();
             formData.append("username", username);
             formData.append("first_name", firstName);
             formData.append("last_name", lastName);
             formData.append("password", password);
 
-            const msg = document.getElementById("registerMessage");
+            const msg = document.getElementById("registerMessage"); // message display element
 
             try {
+                // send registration data to the server
                 const response = await fetch("Scripts/dbHelpers.php?action=register", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: formData,
                 });
 
+                // parse the response
                 const data = await response.json();
 
-                if (data.status === "success") {
-                    msg.textContent = "Registration successful! Redirecting to login...";
+                if (data.status === "success") 
+                {
+                    // display success message and redirect to login page
+                    msg.textContent = "registration successful! redirecting to login...";
                     msg.style.color = "green";
                     setTimeout(function () {
                         window.location.href = "index.html";
                     }, 1500);
-                } else {
+                } 
+                else 
+                {
+                    // display error message from the server
                     msg.textContent = data.message;
                     msg.style.color = "red";
                 }
             } catch (error) {
-                msg.textContent = "An error occurred. Please try again.";
+                // handle network or other unexpected errors
+                msg.textContent = "an error occurred. please try again.";
                 msg.style.color = "red";
             }
         });

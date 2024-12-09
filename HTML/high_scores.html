@@ -1,70 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click Counter - High Scores</title>
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
+
 <body>
     <div class="container">
         <div class="sidebar">
-            <a href="index.html">Login</a>
-            <a href="register.html">Register</a>
-            <a href="game.html">Play</a>
-            <a href="high_scores.html" class="active">High Scores</a>
+            <a href="index.html">login</a>
+            <a href="register.html">register</a>
+            <a href="game.html">play</a>
+            <a href="high_scores.html" class="active">high scores</a>
         </div>
+
         <div class="content">
-            <h1>High Scores</h1>
+            <h1>high scores</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Total Clicks</th>
-                        <th>Clicks per Second</th>
-                        <th>Date Scored</th>
+                        <th>first name</th>
+                        <th>last name</th>
+                        <th>total clicks</th>
+                        <th>clicks per second</th>
+                        <th>date scored</th>
                     </tr>
                 </thead>
                 <tbody id="highScoresTable">
-                    <!-- Dynamic content will be loaded here -->
+                    <!-- dynamic content will be loaded here -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        async function loadHighScores() {
-            try {
-                const response = await fetch("Scripts/dbHelpers.php?action=getHighScores");
-                const data = await response.json();
+         // fetches high scores from the backend and updates the table 
+        function loadHighScores()
+        {
+            fetch("Scripts/dbHelpers.php?action=getHighScores")
+                .then(function (response) 
+                {
+                    return response.json();
+                })
+                .then(function (data) 
+                {
+                    if (data.status === "success") 
+                    {
+                        const tableBody = document.getElementById("highScoresTable");
 
-                if (data.status === "success") {
-                    const tableBody = document.getElementById("highScoresTable");
-                    tableBody.innerHTML = ""; // Clear existing rows
+                        // clear existing rows
+                        tableBody.innerHTML = "";
 
-                    // Add scores to the table
-                    for (const score of data.scores) {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${score.first_name}</td>
-                            <td>${score.last_name}</td>
-                            <td>${score.click_total}</td>
-                            <td>${score.clicks_per_sec}</td>
-                            <td>${score.date_scored}</td>
-                        `;
-                        tableBody.appendChild(row);
+                        // populate the table with high scores
+                        data.scores.forEach(function (score) 
+                        {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${score.first_name}</td>
+                                <td>${score.last_name}</td>
+                                <td>${score.click_total}</td>
+                                <td>${score.clicks_per_sec}</td>
+                                <td>${score.date_scored}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                    } 
+                    else 
+                    {
+                        console.error(data.message);
                     }
-                } else {
-                    console.error(data.message);
-                }
-            } catch (error) {
-                console.error("Error loading high scores:", error);
-            }
+                })
+                .catch(function (error) 
+                {
+                    console.error("error loading high scores:", error);
+                });
         }
 
-        // Load scores on page load
+        // load scores on page load
         window.onload = loadHighScores;
     </script>
 </body>
+
 </html>
