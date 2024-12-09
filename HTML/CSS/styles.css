@@ -1,0 +1,148 @@
+/* General Reset and Base Styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5; /* Light background color */
+  height: 100vh;
+}
+
+/* Main Container */
+.container {
+  display: flex;
+  width: 80%;
+  height: 90%;
+  border: 1px solid #ddd; /* Light border for structure */
+  border-radius: 10px;
+  background-color: #ffffff; /* White content area */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 200px;
+  background-color: #333; /* Dark sidebar background */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  border-right: 2px solid #ddd;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #444;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar a:hover {
+  /* highlight on hover */
+  background-color: #555;
+  /* slight enlarge effect */ 
+  transform: scale(1.05); 
+}
+
+.sidebar a.active {
+  /* active link highlight */
+  background-color: #00aaff; 
+}
+
+/* content area */
+.content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+h1 {
+  font-size: 36px;
+  color: #333;
+
+  /* pushes the whole game down a bit, too close to the top */
+  margin-top: 250px;
+}
+
+/* form */
+form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* button */
+button {
+  background-color: #00aaff; 
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  /* darker blue on hover */
+  background-color: #008ecc;
+  /* slightly larger too */ 
+  transform: scale(1.05); 
+}
+
+#clickButton, #restartButton {
+  width: 150px;
+  height: 50px;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* table style for scores */
+table {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  text-align: left;
+  padding: 10px;
+}
+
+table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#clickCount, #timer {
+  font-size: 24px;
+  margin: 10px 0;
+  color: #333;
+}
